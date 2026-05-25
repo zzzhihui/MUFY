@@ -1,0 +1,2 @@
+text = "zzzhihui"
+print (text)
