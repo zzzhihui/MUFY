@@ -248,20 +248,19 @@ elif nav == "📊 Mood Statistics":
             recent_entries = len([e for e in entries if (datetime.now() - datetime.strptime(e["timestamp"], "%Y-%m-%d %H:%M:%S")).days <= 7])
             st.metric("Entries This Week", recent_entries)
 
-    from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-
-if entries:
-    all_text = " ".join([entry["content"] for entry in entries])
-    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(all_text)
-    
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(wordcloud, interpolation="bilinear")
-    ax.axis("off")
-    st.pyplot(fig)
+        # Word Cloud
+        st.subheader("📝 Word Cloud of Your Thoughts")
+        from wordcloud import WordCloud
+        import matplotlib.pyplot as plt
+        all_text = " ".join([entry["content"] for entry in entries])
+        wordcloud = WordCloud(width=800, height=400, background_color="white").generate(all_text)
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.imshow(wordcloud, interpolation="bilinear")
+        ax.axis("off")
+        st.pyplot(fig)
         
         # Mood distribution chart
-        st.subheader("Mood Distribution")
+        st.subheader("📊 Mood Distribution")
         fig = px.bar(
             mood_stats,
             x="Mood",
