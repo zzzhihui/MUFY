@@ -154,13 +154,3 @@ st.markdown(
 st.write("")
 st.write("Made with positivity ✨")
 
-# =====================================
-# AI CHAT SECTION
-# =====================================
-
-st.subheader("🤖 AI Positivity Assistant")
-
-user_input = st.text_input(
-    "Talk to the AI:"
-)
-
