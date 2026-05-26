@@ -164,7 +164,7 @@ user_input = st.text_input(
     "Talk to the AI:"
 )
 
-
+pip install openai
 import streamlit as st
 import random
 from openai import OpenAI
