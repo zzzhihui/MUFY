@@ -153,3 +153,42 @@ st.markdown(
 
 st.write("")
 st.write("Made with positivity ✨")
+
+# =====================================
+# AI CHAT SECTION
+# =====================================
+
+st.subheader("🤖 AI Positivity Assistant")
+
+user_input = st.text_input(
+    "Talk to the AI:"
+)
+
+if st.button("Ask AI"):
+
+    if user_input != "":
+
+        response = client.chat.completions.create(
+
+            model="gpt-3.5-turbo",
+
+            messages=[
+
+                {
+                    "role": "system",
+                    "content":
+                    "You are a kind and positive assistant."
+                },
+
+                {
+                    "role": "user",
+                    "content": user_input
+                }
+
+            ]
+
+        )
+
+        ai_reply = response.choices[0].message.content
+
+        st.success(ai_reply)
