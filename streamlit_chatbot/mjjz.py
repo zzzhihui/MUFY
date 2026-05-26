@@ -164,6 +164,10 @@ user_input = st.text_input(
     "Talk to the AI:"
 )
 
+
+import streamlit as st
+import random
+from openai import OpenAI
 if st.button("Ask AI"):
 
     if user_input != "":
