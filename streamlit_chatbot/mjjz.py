@@ -164,35 +164,3 @@ user_input = st.text_input(
     "Talk to the AI:"
 )
 
-pip install openai
-import streamlit as st
-import random
-from openai import OpenAI
-if st.button("Ask AI"):
-
-    if user_input != "":
-
-        response = client.chat.completions.create(
-
-            model="gpt-3.5-turbo",
-
-            messages=[
-
-                {
-                    "role": "system",
-                    "content":
-                    "You are a kind and positive assistant."
-                },
-
-                {
-                    "role": "user",
-                    "content": user_input
-                }
-
-            ]
-
-        )
-
-        ai_reply = response.choices[0].message.content
-
-        st.success(ai_reply)
