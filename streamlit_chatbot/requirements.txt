@@ -1,0 +1,7 @@
+streamlit
+pillow
+pandas
+plotly
+wordcloud
+matplotlib
+pytz
