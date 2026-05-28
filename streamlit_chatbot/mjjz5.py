@@ -423,3 +423,36 @@ elif nav == "💾 Data Tools":
             except Exception as e:
                 st.error(f"Error importing data: {e}")
     st.markdown('</div>', unsafe_allow_html=True)
+    st.sidebar.title("🎧 Focus Music")
+
+
+music_choice = st.sidebar.selectbox(
+    "Choose music mood",
+    ["None", "🌿 Calm", "😊 Happy", "✨ Satisfying"]
+)
+
+
+
+
+# =====================================================
+# MUSIC LINKS (SIMPLE & SAFE)
+# =====================================================
+
+
+music_links = {
+    "🌿 Calm": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "😊 Happy": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "✨ Satisfying": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+}
+
+
+
+
+if music_choice != "None":
+
+
+    st.sidebar.success(f"Playing: {music_choice}")
+
+
+    st.audio(music_links[music_choice])
+
