@@ -20,5 +20,14 @@
       "daily"
     ],
     "image_path": "journal_images/img_20260528092228.png"
+  },
+  {
+    "timestamp": "2026-05-28 10:00:05",
+    "date": "2026-05-28",
+    "mood": "😊 Happy",
+    "emoji": "😊",
+    "content": "kokol",
+    "tags": [],
+    "image_path": ""
   }
 ]
