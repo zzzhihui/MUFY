@@ -8,36 +8,35 @@ import pandas as pd
 import plotly.express as px
 import pytz
 
-# ---------------------- 1. 登录系统配置 ----------------------
-# 你可以在这里设置多个密码，比如自己用的、备用的
-VALID_PASSWORDS = ["1234"] 
+# ---------------------- Login System Settings ----------------------
+VALID_PASSWORDS = ["123456", "mydiary2026"]  # Change to your own password
 
-# 初始化session state，记录用户是否已登录
+# Initialize login status
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-# 登录页面
+# Login Page
 def login_page():
     st.title("🔒 My Daily Journal")
-    st.markdown("### Please Enter Your Password")
+    st.markdown("### Please enter your password to access your diary")
     
-    password = st.text_input("密码", type="password")
-    if st.button("登录", use_container_width=True):
+    password = st.text_input("Password", type="password")
+    if st.button("Sign In", use_container_width=True):
         if password in VALID_PASSWORDS:
             st.session_state.logged_in = True
             st.rerun()
         else:
-            st.error("密码错误，请重试")
+            st.error("Incorrect password, please try again")
 
-# 如果未登录，只显示登录页面
+# Block access if not logged in
 if not st.session_state.logged_in:
     login_page()
-    st.stop()  # 停止执行后面的所有代码，保护隐私
+    st.stop()
 
-# ---------------------- 2. 时区设置 ----------------------
-tz = pytz.timezone("Asia/Kuala_Lumpur")  # 马来西亚时区，如需中国请改为"Asia/Shanghai"
+# ---------------------- Time Zone Settings ----------------------
+tz = pytz.timezone("Asia/Kuala_Lumpur")  # Use "Asia/Shanghai" for China
 
-# ---------------------- 3. App Configuration & 全局美化 ----------------------
+# ---------------------- App Configuration & Global Style ----------------------
 st.set_page_config(
     page_title="MoodVibe Journal",
     page_icon="📖",
@@ -48,23 +47,23 @@ st.set_page_config(
     }
 )
 
-# 全局CSS美化（温柔粉白渐变+圆角卡片+hover动画）
+# Global CSS Style
 st.markdown("""
 <style>
-/* 全局背景 */
+/* Global Background */
 .stApp {
     background: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
     color: #333333;
 }
 
-/* 输入框美化 */
+/* Input Area Style */
 .stTextArea, .stTextInput {
     background-color: rgba(255,255,255,0.85) !important;
     border-radius: 12px !important;
     border: 1px solid #e0e0e0 !important;
 }
 
-/* 按钮美化 */
+/* Button Style */
 .stButton>button {
     background-color: #ffb6c1 !important;
     color: white !important;
@@ -79,13 +78,13 @@ st.markdown("""
     box-shadow: 0 6px 16px rgba(255,158,181,0.4);
 }
 
-/* 侧边栏美化 */
+/* Sidebar Style */
 .css-1d391kg {
     background-color: rgba(255,255,255,0.9) !important;
     border-right: 1px solid #eee;
 }
 
-/* 卡片容器美化 */
+/* Card Style */
 .card {
     background: white;
     padding: 20px;
@@ -99,7 +98,7 @@ st.markdown("""
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* 装饰分隔线 */
+/* Divider Style */
 .divider {
     text-align: center;
     margin: 20px 0;
@@ -107,7 +106,7 @@ st.markdown("""
     font-size: 18px;
 }
 
-/* 标题渐变文字 */
+/* Gradient Title */
 h1, h2, h3 {
     background: linear-gradient(90deg, #ff9a9e, #fad0c4);
     -webkit-background-clip: text;
@@ -116,7 +115,7 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------------- 4. Constants ----------------------
+# ---------------------- Constant Variables ----------------------
 DATA_FILE = "journal_entries.json"
 IMAGE_FOLDER = "journal_images"
 MOOD_EMOJIS = {
@@ -149,7 +148,7 @@ POSITIVE_QUOTES = [
     "Be kind to yourself. You're doing your best."
 ]
 
-# ---------------------- 5. Helper Functions ----------------------
+# ---------------------- Function Definitions ----------------------
 def init_app():
     if not os.path.exists(DATA_FILE):
         with open(DATA_FILE, "w", encoding="utf-8") as f:
@@ -197,10 +196,10 @@ def get_mood_stats(entries):
         mood_counts[mood] = mood_counts.get(mood, 0) + 1
     return pd.DataFrame(list(mood_counts.items()), columns=["Mood", "Count"])
 
-# ---------------------- 6. Initialize App ----------------------
+# ---------------------- Initialize Application ----------------------
 init_app()
 
-# ---------------------- 7. Sidebar ----------------------
+# ---------------------- Sidebar ----------------------
 with st.sidebar:
     st.header("📖 MoodVibe Journal")
     st.markdown("---")
@@ -211,15 +210,14 @@ with st.sidebar:
     )
     
     st.markdown("---")
-    # 退出登录按钮
-    if st.button("退出登录", use_container_width=True):
+    if st.button("Sign Out", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
     
     st.caption("✨ Your Personal Life Diary & Mood Tracker")
     st.caption("Built with ❤️ using Streamlit")
 
-# ---------------------- 8. Page 1: Write New Entry ----------------------
+# ---------------------- Page 1: Write New Entry ----------------------
 if nav == "✍️ Write New Entry":
     st.header("🌸 Today's Entry 🌸")
     st.markdown('<div class="divider">✨ ✨ ✨ ✨ ✨</div>', unsafe_allow_html=True)
@@ -259,7 +257,7 @@ if nav == "✍️ Write New Entry":
     
     if st.button("💾 Save Entry", type="primary", use_container_width=True):
         if not journal_content.strip():
-            st.warning("Please write something in your journal before saving!")
+            st.warning("Please write something before saving!")
         else:
             img_path = compress_and_save_image(uploaded_img)
             
@@ -274,10 +272,10 @@ if nav == "✍️ Write New Entry":
             }
             
             save_entry(new_entry)
-            st.success("✅ Your journal entry has been saved successfully!")
+            st.success("✅ Entry saved successfully!")
             st.balloons()
 
-# ---------------------- 9. Page 2: View & Manage Journals ----------------------
+# ---------------------- Page 2: View & Manage Journals ----------------------
 elif nav == "📚 View & Manage Journals":
     st.header("📚 Your Journal History")
     st.markdown('<div class="divider">✨ ✨ ✨ ✨ ✨</div>', unsafe_allow_html=True)
@@ -319,7 +317,7 @@ elif nav == "📚 View & Manage Journals":
                             st.rerun()
                     st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------------- 10. Page 3: Mood Statistics ----------------------
+# ---------------------- Page 3: Mood Statistics ----------------------
 elif nav == "📊 Mood Statistics":
     st.header("📊 Your Mood Overview")
     st.markdown('<div class="divider">✨ ✨ ✨ ✨ ✨</div>', unsafe_allow_html=True)
@@ -383,7 +381,7 @@ elif nav == "📊 Mood Statistics":
         st.plotly_chart(fig, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------------- 11. Page 4: Data Tools ----------------------
+# ---------------------- Page 4: Data Tools ----------------------
 elif nav == "💾 Data Tools":
     st.header("💾 Data Management")
     st.markdown('<div class="divider">✨ ✨ ✨ ✨ ✨</div>', unsafe_allow_html=True)
@@ -416,7 +414,7 @@ elif nav == "💾 Data Tools":
     
     st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Import Data (Advanced)")
-    st.warning("⚠️ This will merge imported data with existing entries. Make sure you have a backup first!")
+    st.warning("⚠️ This will merge imported data with existing entries. Please back up first!")
     uploaded_backup = st.file_uploader("Upload a journal_backup.json file", type=["json"])
     if uploaded_backup is not None:
         if st.button("📤 Import Data", type="secondary"):
@@ -429,5 +427,39 @@ elif nav == "💾 Data Tools":
                 st.success("Data imported successfully!")
                 st.rerun()
             except Exception as e:
-                st.error(f"Error importing data: {e}")
+                st.error(f"Import failed: {e}")
     st.markdown('</div>', unsafe_allow_html=True)
+
+    st.sidebar.title("🎧 Focus Music")
+
+
+music_choice = st.sidebar.selectbox(
+    "Choose music mood",
+    ["None", "🌿 Calm", "😊 Happy", "✨ Satisfying"]
+)
+
+
+
+
+# =====================================================
+# MUSIC LINKS (SIMPLE & SAFE)
+# =====================================================
+
+
+music_links = {
+    "🌿 Calm": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "😊 Happy": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "✨ Satisfying": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+}
+
+
+
+
+if music_choice != "None":
+
+
+    st.sidebar.success(f"Playing: {music_choice}")
+
+
+    st.audio(music_links[music_choice])
+
