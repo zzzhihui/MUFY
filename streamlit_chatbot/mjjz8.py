@@ -41,7 +41,7 @@ if "current_user" not in st.session_state:
 
 # ====================== 登录/注册页面 ======================
 def auth_page():
-    st.title("🌟 Student Wellness App")
+    st.title("🌟 MoodVibe Journal 🌟")
     option = st.selectbox("Choose Option", ["Sign In", "Sign Up"])
 
     if option == "Sign Up":
@@ -95,7 +95,7 @@ user_img_folder = os.path.join(BASE_DATA_FOLDER, f"{current_user}_images")
 
 # ====================== 全局美化样式 ======================
 st.set_page_config(
-    page_title="Student Wellness Journal",
+    page_title="MoodVibe Journal",
     page_icon="🌟",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -232,7 +232,7 @@ def get_mood_stats(entries):
 
 # ====================== 侧边栏 ======================
 with st.sidebar:
-    st.header("🌟 Student Wellness App")
+    st.header("🌟 MoodVibe Journal 🌟")
     st.info(f"Welcome, {current_user}")
     st.markdown("---")
 
