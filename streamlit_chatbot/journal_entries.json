@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "timestamp": "2026-05-28 09:16:40",
+    "date": "2026-05-28",
+    "mood": "😊 Happy",
+    "emoji": "😊",
+    "content": "cat",
+    "tags": [
+      "daily"
+    ],
+    "image_path": "journal_images/img_20260528091640.png"
+  },
+  {
+    "timestamp": "2026-05-28 09:22:28",
+    "date": "2026-05-28",
+    "mood": "😆 Excited",
+    "emoji": "😆",
+    "content": "happy happy happy",
+    "tags": [
+      "daily"
+    ],
+    "image_path": "journal_images/img_20260528092228.png"
+  }
+]
